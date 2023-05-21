@@ -34,17 +34,8 @@ body {
 	padding: 40px 40px 40px 40px;
 }
 
-hr {
-	height: 3em;
-	display: block;
-}
-
 div {
 	padding-left: 8ch;
-}
-
-th, td {
-	padding-right: 8ch;
 }
 
 input[type=text]:hover, input[type=text]:focus {
@@ -91,7 +82,7 @@ a:hover, option:hover, input[type=submit]:hover {
 	color: black;
 }
 
-a:visited{
+a:visited {
 	color cyan;
 }
 

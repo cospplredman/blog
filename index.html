@@ -7,6 +7,23 @@
   </head>
   
   <body>
-    initial commit vibes
+<pre>
+Welcome to my terrible blog!
+
+posts:
+	<div id="posts"></div>
+</pre>
   </body>
+  <script src="posts.js"></script>
+<script>
+
+let postElement = document.getElementById("posts");
+for(let i = 0; i < posts.length; i++){
+	let link = document.createElement("a");
+	link.innerText = posts[i].title;
+	link.href = `./posts/${posts[i].id}/index.html`;
+	postElement.appendChild(link);
+}
+
+</script>
 </html>
