@@ -1,0 +1,101 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+	background: yellow;
+	color: black;
+}
+
+::-moz-selection {
+	background: yellow;
+	color: black;
+}
+
+*, :after, :before {
+	-moz-appearance: initial;
+	background-color: black;
+	background: black;
+
+	text-align: left;
+	font-family: "Nimbus Mono PS", monospace;
+	font-size: 20px;
+	line-height: 1em;
+	color: white;
+
+	scrollbar-width: none;
+	border: none;
+	outline: none;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+
+body {
+	padding: 40px 40px 40px 40px;
+}
+
+hr {
+	height: 3em;
+	display: block;
+}
+
+div {
+	padding-left: 8ch;
+}
+
+th, td {
+	padding-right: 8ch;
+}
+
+input[type=text]:hover, input[type=text]:focus {
+	background-color: magenta;
+	color: black;
+}
+
+input[type=text] {
+	min-width: 30%;
+	max-width: 60%;
+	color: magenta;
+}
+
+input[type=checkbox] {
+	width: 3ch;
+	height: 1em;
+	vertical-align: bottom;
+}
+
+input[type=checkbox]::after {
+	position: absolute;
+	text-decoration: underline;
+	cursor: pointer;
+	content: "[ ]";
+	color: cyan;
+}
+
+input[type=checkbox]:hover:after {
+	color: magenta;
+}
+
+input[type=checkbox]:checked:after {
+	content: "[X]";
+	color: magenta;
+}
+
+a, option, input[type=submit] {
+	text-decoration: underline;
+	color: cyan;
+}
+
+a:hover, option:hover, input[type=submit]:hover {
+	background: magenta;
+	color: black;
+}
+
+a:visited{
+	color cyan;
+}
+
+option:checked {
+	background: linear-gradient(magenta, magenta);
+	color: black;
+}
