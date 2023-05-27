@@ -7,8 +7,7 @@
   </head>
   
   <body>
-	  <iframe style="border:1px solid white; width: 100%; height: 100%" src="index.html"></iframe>
-	  <div style="position:absolute; width: 0px; height: 1em; background: transparent; top: 80px; left: 50%; border-left: 2px solid cyan"></div>
+	  <iframe style="width: 100%; border: 1px solid white" src="index.html"></iframe>
 	  <button onclick="spreed()">spreed</button>
 <script>
 function getTextNodes(element){
@@ -22,6 +21,7 @@ function getTextNodes(element){
 			break;
 		nds.push(nd);
 	};
+
 	return nds;
 }
 
@@ -41,46 +41,57 @@ function getNodeStr(nodes){
 	return nodes.reduce((a, b)=>a + b.textContent, "");
 }
 
-function spreed(){
-	let element = document.getElementsByTagName("iframe")[0].contentWindow.document.body;
+function spreed(element){
+	element = document.getElementsByTagName("iframe")[0].contentWindow.document.body;
+
 	let nodes = getTextNodes(element);
-
-	element.style.transform = "";
-
-	let cx = 0, cy = 0;
-	let wpx = document.body.clientWidth / 2.0 - 40, wpy = 50;
+	element.style.transform = "translate(0px,0px)";
 
 	let str = getNodeStr(nodes);
 	let si = str.matchAll(/[^\s]+/g);
 
-	let fn = ()=>{
-		let del = 100;
+	let cursor = document.createElement("p");
+	
+	cursor.style.height = "1em";
+	cursor.style.position = "absolute";
+	cursor.style.top = "2vw";
+	cursor.style.width = "100vw";
+	cursor.style["text-align"] = "center";
+	cursor.style.background = "transparent";
+	cursor.innerText = "|";
+
+	element.parentElement.appendChild(cursor);
+
+	let cpos = cursor.getBoundingClientRect();
+	let wpx = cpos.x + cpos.width / 2.0;
+	let wpy = cpos.y + cpos.height / 2.0;
+
+	let cx = 0, cy = 0;
+	let fn = () => {
+		let del = 80;
 		let cm = si.next().value;
-		if(!cm)
+
+		if(!cm){
+			cursor.remove();
 			return;
-
-		let pos = getStrPos(nodes, cm.index + Math.min(cm[0].length >> 1.0, 3), 1);
-
-		if(pos){
-			let mx = pos.x + pos.width / 2;
-			let my = pos.y + pos.height / 2;
-			
-			let dx = wpx - mx;
-			let dy = wpy - my;
-
-			if(Math.sqrt(dx * dx + dy * dy) > 80)
-				del *= 2;
-
-			cx += dx;
-			cy += dy;
-
-			element.style.transform = `translate(${cx}px,${cy}px)`;
-			//element.style.transition = "transform 0.05s 0s";
 		}
+
+		//let pos = getStrPos(nodes, cm.index + Math.min(cm[0].length >> 1.0, 4), 1);
+		let pos = getStrPos(nodes, cm.index, 1);
+
+		let dx = wpx - (pos.x + pos.width / 2);
+		let dy = wpy - (pos.y + pos.height / 2);
+		
+		if(dx > 0 || (dx * dx + dy * dy) > (10*cpos.height)**2)
+			del *= 2;
+
+		del += del*((cm[0].length / 5) | 0);
+
+		element.style.transform = `translate(${cx += dx}px,${cy += dy}px)`;
 		setTimeout(fn, del);
 	}
 
-	fn();
+	setTimeout(fn, 500);
 }
 </script>
   </body>

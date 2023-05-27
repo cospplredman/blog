@@ -1,5 +1,5 @@
 ::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 ::selection {
@@ -26,16 +26,19 @@
 	scrollbar-width: none;
 	border: none;
 	outline: none;
-	padding: 0 0 0 0;
-	margin: 0 0 0 0;
+
+	padding: 0px;
+	margin: 0px;
+	inset: 0px;
+
+	position: static;
+	box-sizing: border-box;
 }
 
 body {
-	padding: 40px 40px 40px 40px;
-}
-
-div {
-	padding-left: 8ch;
+	width: 100vw;
+	height: 100vh;
+	padding: 2vw;
 }
 
 input[type=text]:hover, input[type=text]:focus {
@@ -83,7 +86,7 @@ a:hover, option:hover, input[type=submit]:hover {
 }
 
 a:visited {
-	color cyan;
+	color: cyan;
 }
 
 option:checked {
